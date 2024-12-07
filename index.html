@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My DApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.0.0/dist/ethers.umd.min.js"></script> <!-- 引入 Ethers.js -->
+</head>
+<body>
+  <h1>Welcome to My DApp</h1>
+  <button id="connectButton">Connect MetaMask</button>
+  <p id="walletAddress"></p>
+
+  <script>
+    // 连接到 MetaMask 钱包
+    const connectButton = document.getElementById('connectButton');
+    const walletAddressElement = document.getElementById('walletAddress');
+
+    connectButton.addEventListener('click', async () => {
+      if (window.ethereum) {
+        try {
+          // 请求连接 MetaMask 钱包
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const walletAddress = accounts[0]; // 获取第一个钱包地址
+          walletAddressElement.textContent = `Connected Address: ${walletAddress}`;
+          
+          // 你可以在此处调用智能合约与区块链交互
+        } catch (error) {
+          console.error('User denied account access or an error occurred:', error);
+        }
+      } else {
+        alert('Please install MetaMask!');
+      }
+    });
+  </script>
+</body>
+</html>
